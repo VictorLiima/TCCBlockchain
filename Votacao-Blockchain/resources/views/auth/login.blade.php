@@ -11,7 +11,7 @@
                     <article class="card-body">
                         <h4 class="card-title text-center mb-4 mt-1">Login</h4>
                         <hr>
-                        <p class="text-center">Insira suas credenciais para entrar no sistema do espelho de vacinação:</p>
+                        <p class="text-center">Insira suas credenciais para entrar no sistema de eleição departamental:</p>
                         <form>
                             <div class="form-group">
                                 <div class="input-group">

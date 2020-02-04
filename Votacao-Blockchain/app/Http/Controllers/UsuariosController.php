@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Unidade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 
@@ -28,25 +27,19 @@ class UsuariosController extends Controller
     public function getUsuario(int $id)
     {
         $usuario = User::find($id);
-        $listaUnidades = Unidade::all();
 
         return view(
             'usuarios/cadastro',
             [
                 'usuario' => $usuario,
-                'listaUnidades' => $listaUnidades,
-
             ]
         );
     }
 
     public function telaCadastroUsuario()
     {
-        $listaUnidades = Unidade::all();
 
-        return view('usuarios/cadastro', [
-            'listaUnidades' => $listaUnidades,
-        ]);
+        return view('usuarios/cadastro');
     }
 
     public function telaRedefinirSenha()
@@ -71,22 +64,21 @@ class UsuariosController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            //'senha' => 'required|string|min:6|confirmed',
-            'cpf' => 'required|string|min:14|max:14|unique:users',
-            'unidade' => 'required|string',
-            'permissao' => 'required|string',
-            'funcao' => 'required|string',
+
         ]);
 
         $usuario = new User();
         $usuario->name = $request->name;
         $usuario->password = Hash::make('123456'); //Senha padrão na criação do usuário
         $usuario->email = $request->email;
-        $usuario->cpf = $request->cpf;
-        $usuario->unidade = $request->unidade;
-        $usuario->permissao = $request->permissao;
-        $usuario->funcao = $request->funcao;
 
+
+        if ($request->checkAdministrador == 1){
+        $usuario->administrador = 1;
+        } else $usuario->administrador = 0;
+        if ($request->checkEleitor == 1){
+            $usuario->eleitor = 1;
+        } else $usuario->eleitor = 0;
 
         $usuario->save();
 
@@ -98,17 +90,19 @@ class UsuariosController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             //'senha' => 'required|string|min:6|confirmed',
-            'unidade' => 'required|string',
-            'permissao' => 'required|string',
-            'funcao' => 'required|string',
+            //'unidade' => 'required|string',
+            //'permissao' => 'required|string',
+            //'funcao' => 'required|string',
         ]);
 
         $usuario = User::find($id);
         $usuario->name = $request->name;
-        //$usuario->password = Hash::make($request->senha);
-        $usuario->unidade = $request->unidade;
-        $usuario->permissao = $request->permissao;
-        $usuario->funcao = $request->funcao;
+        if ($request->checkAdministrador == 1){
+            $usuario->administrador = 1;
+            } else $usuario->administrador = 0;
+            if ($request->checkEleitor == 1){
+                $usuario->eleitor = 1;
+            } else $usuario->eleitor = 0;
 
         $usuario->save();
 
@@ -150,8 +144,8 @@ class UsuariosController extends Controller
         //Busca
         if ($q != "") {
             $listaUsuarios = User::where('name', 'LIKE', '%' . $q . '%')
-                ->orWhere('unidade', 'LIKE', '%' . $q . '%')
-                ->orWhere('funcao', 'LIKE', '%' . $q . '%')
+                //->orWhere('unidade', 'LIKE', '%' . $q . '%')
+                //->orWhere('funcao', 'LIKE', '%' . $q . '%')
                 ->paginate(15)->setPath('/vacinas/busca');
             $pagination = $listaUsuarios->appends(array(
                 'q' => $q

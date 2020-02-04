@@ -35,6 +35,8 @@
 
     <!-- Icons -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ URL::asset('/img/iconeUrna.png') }}" type="image/x-icon"/>
+
 </head>
 
 <body>
