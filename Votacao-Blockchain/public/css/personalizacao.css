@@ -1,0 +1,115 @@
+body {
+    overflow-x: hidden;
+  }
+  
+  #sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    -webkit-transition: margin .25s ease-out;
+    -moz-transition: margin .25s ease-out;
+    -o-transition: margin .25s ease-out;
+    transition: margin .25s ease-out;
+  }
+  
+  #sidebar-wrapper .sidebar-heading {
+    padding: 0.72rem 1.25rem;
+    font-size: 1.2rem;
+    background-color: #fff;
+  }
+  
+  #sidebar-wrapper .list-group {
+    width: 15rem;
+  
+  }
+  
+  #page-content-wrapper {
+    min-width: 100vw;
+  
+  }
+  
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: 0;
+  
+  }
+  
+  @media (min-width: 768px) {
+    #sidebar-wrapper {
+      margin-left: 0;
+  
+    }
+  
+    #page-content-wrapper {
+      min-width: 0;
+      width: 100%;
+  
+    }
+  
+    #wrapper.toggled #sidebar-wrapper {
+      margin-left: -15rem;
+      background-color: #1d643b;
+  
+    }
+  
+    #sidebar-wrapper .sidebar-heading {
+      padding: 0.77rem 1.25rem;
+      font-size: 1.2rem;
+      background-color: #fff;
+    }
+  }
+  
+  input{
+  
+    height:24px;
+    font-size: 10px;
+    }
+  
+    .carregando {
+      display:    none;
+      position:   fixed;
+  
+      top:        0;
+      left:       0;
+      height:     100%;
+      width:      100%;
+      background: rgba( 255, 255, 255, .8 ) 
+      url('/img/loading.gif')
+  
+      50% 50%
+                  no-repeat;
+  }
+  
+  /* .loader {
+      position: fixed;
+  
+      width: 80px;
+      height: 80px;
+      border: 10px solid rgba(0, 0, 0, .3);
+      border-radius: 50%;
+      border-top-color: #000;
+      animation: spin 1s ease-in-out infinite;
+      -webkit-animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+    
+    @-webkit-keyframes spin {
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    } */
+    
+  /* When the body has the loading class, we turn
+     the scrollbar off with overflow:hidden */
+  body.loading .carregando {
+      overflow: hidden;   
+  }
+  
+  /* Anytime the body has the loading class, our
+     modal element will be visible */
+  body.loading .carregando {
+      display: block;
+  }
