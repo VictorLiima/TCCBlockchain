@@ -21,6 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->boolean('administrador');
+            $table->boolean('eleitor');
+            $table->string('senha_redefinida')->nullable();
         });
     }
 
