@@ -44,16 +44,15 @@
         <div class="bg-info" id="sidebar-wrapper">
             <div class="sidebar-heading text-center">{{ config('app.name', 'Laravel') }}</div>
             <div class="list-group list-group-flush">
-                <a href="{{ route('pacientes') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-address-card"></i> Pacientes</a>
-                @if (Auth::user()->permissao == 'Administrador')
-                <a href="{{ route('vacinas') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-syringe"></i> Vacinas</a>
-                @if (Route::has('unidades'))
-                <a href="{{ route('unidades') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-hospital"></i> Unidades</a>
-                @endif
+                
+                <a href="{{ route('candidatos') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-address-card"></i> Candidatos</a>
+                @if (Auth::user()->administrador == 1)
                 <a href="{{ route('usuarios') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-users"></i> Usuários</a>
+                {{--
                 <a href="{{ route('graficos') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-chart-bar"></i> Gráficos</a>
-                <a href="{{ route('relatorios') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-file-export"></i> Relatórios</a>
+                --}}
                 @endif
+               
             </div>
         </div>
         @endauth
