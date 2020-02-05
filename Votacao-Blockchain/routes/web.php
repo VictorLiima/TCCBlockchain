@@ -31,6 +31,9 @@ Route::middleware(['auth', 'Administrador', 'SenhaRedefinida'])->group(function 
     Route::post('/candidatos/cadastro/novo', 'CandidatosController@cadastrarCandidato')->name('cadastrarCandidato');
     Route::post('/candidatos/cadastro/alterar/{id}', 'CandidatosController@alterarCandidato')->name('alterarCandidato');
     Route::post('/candidatos/deletar/{id}', 'CandidatosController@deletarCandidato')->name('deletarCandidato');
+    Route::get('/candidatos/visualizar/{id}', 'CandidatosController@visualizarCandidato')->name('visualizarCandidato');
+    Route::get('/candidatos','CandidatosController@index')->name('candidatos');
+    Route::any('/candidatos/busca', 'CandidatosController@buscaCandidato')->name('candidatosBusca');
 
 });
 
@@ -39,9 +42,7 @@ Route::middleware(['auth', 'SenhaRedefinida'])->group(function () {
     Route::get('/resultado', 'ResultadoController@index')->name('resultado');
     Route::get('/votacao', 'VotacaoController@index')->name('votacao');
 
-    Route::get('/candidatos/visualizar/{id}', 'CandidatosController@visualizarCandidato')->name('visualizarCandidato');
-    Route::get('/candidatos', 'CandidatosController@index')->name('candidatos');
-    Route::any('/candidatos/busca', 'CandidatosController@buscaCandidato')->name('candidatosBusca');
+
 });
 
 Route::middleware(['auth'])->group(function () {
