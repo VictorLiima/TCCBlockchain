@@ -32,9 +32,7 @@
                     <tr>
                         <th>Código</th>
                         <th>Nome</th>
-                        <th>Localidade</th>
-                        <th>Data de nascimento</th>
-                        <th>Nº SUS</th>
+                        <th>Total Votos</th>
                         <th class="actions">Ações</th>
                     </tr>
                 </thead>
@@ -44,18 +42,12 @@
                     <tr>
                         <td>{{$candidato->id}}</td>
                         <td>{{$candidato->nome}}</td>
-                        <td>{{$candidato->localidade}}</td>
-                        <td>{{date('d/m/Y', strtotime($candidato->data_nascimento))}}</td>
-                        <td>{{$candidato->sus}}</td>
+                        <td>{{$candidato->total_votos}}</td>
 
                         <td class="actions">
-                            <a class="btn btn-secondary btn-xs" href="{{ route('visualizarCandidato', $candidato->id) }}"><i class="fas fa-print"></i> Imprimir</a>
                             
-                            @if (Auth::user()->permissao == 'Administrador' || Auth::user()->permissao == 'Comum')
+                            @if (Auth::user()->administrador == 1)
                             <a class="btn btn-success btn-xs" href="{{ route('candidatoId', $candidato->id) }}"><i class="far fa-eye"></i> Visualizar</a>
-                            @endif
-
-                            @if (Auth::user()->permissao == 'Administrador')
                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalExclusaoCandidato{{$candidato->id}}">
                                 <i class="fas fa-trash"></i> Excluir
                             </button>
