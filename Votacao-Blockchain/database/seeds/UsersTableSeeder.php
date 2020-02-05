@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'felipe.augum@gmail.com',
             'password' => '$2y$10$q0W6UPajaRCMGtmpOSd2susyjz/jg9OXNqr5i1oSslBZ4jYopNH5.',
             'administrador' => 1,
-            'eleitor' => 0
+            'eleitor' => 1
         ]);
 
         DB::table('users')->insert([
@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
             'email' => 'jmartins.1999@alunos.utfpr.edu.br',
             'password' => '$2y$10$q0W6UPajaRCMGtmpOSd2susyjz/jg9OXNqr5i1oSslBZ4jYopNH5.',
             'administrador' => 1,
-            'eleitor' => 0
+            'eleitor' => 1
         ]);
     }
 }

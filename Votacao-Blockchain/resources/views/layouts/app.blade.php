@@ -35,7 +35,7 @@
 
     <!-- Icons -->
     <link href="{{ asset('css/all.css') }}" rel="stylesheet">
-    <link rel="icon" href="{{ URL::asset('/img/iconeUrna.png') }}" type="image/x-icon"/>
+    <link rel="icon" href="{{ URL::asset('/img/iconeUrna.png') }}" type="image/x-icon" />
 
 </head>
 
@@ -46,7 +46,10 @@
         <div class="bg-info" id="sidebar-wrapper">
             <div class="sidebar-heading text-center">{{ config('app.name', 'Laravel') }}</div>
             <div class="list-group list-group-flush">
-                
+
+                @if (Auth::user()->eleitor == 1)
+                <a href="{{ route('candidatos') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-user-check"></i> Votação</a>
+                @endif
                 <a href="{{ route('candidatos') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-address-card"></i> Candidatos</a>
                 @if (Auth::user()->administrador == 1)
                 <a href="{{ route('usuarios') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-users"></i> Usuários</a>
@@ -102,4 +105,5 @@
         </div>
     </div>
 </body>
+
 </html>
