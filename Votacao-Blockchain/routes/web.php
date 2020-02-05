@@ -37,6 +37,7 @@ Route::middleware(['auth', 'Administrador', 'SenhaRedefinida'])->group(function 
 
 Route::middleware(['auth', 'SenhaRedefinida'])->group(function () {
     Route::get('/resultado', 'ResultadoController@index')->name('resultado');
+    Route::get('/votacao', 'VotacaoController@index')->name('votacao');
 
     Route::get('/candidatos/visualizar/{id}', 'CandidatosController@visualizarCandidato')->name('visualizarCandidato');
     Route::get('/candidatos', 'CandidatosController@index')->name('candidatos');

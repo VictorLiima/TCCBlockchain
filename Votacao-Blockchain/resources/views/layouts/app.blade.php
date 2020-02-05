@@ -48,7 +48,7 @@
             <div class="list-group list-group-flush">
 
                 @if (Auth::user()->eleitor == 1)
-                <a href="{{ route('candidatos') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-user-check"></i> Votação</a>
+                <a href="{{ route('votacao') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-user-check"></i> Votação</a>
                 @endif
                 <a href="{{ route('candidatos') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-address-card"></i> Candidatos</a>
                 @if (Auth::user()->administrador == 1)
