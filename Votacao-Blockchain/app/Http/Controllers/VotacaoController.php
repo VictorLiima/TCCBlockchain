@@ -57,8 +57,8 @@ class VotacaoController extends Controller
         curl_close($ch);
 
         //Verificação se o eleitor já votou
-        $eleitor->jaVotou = TRUE;
-        $eleitor->save();
+       // $eleitor->jaVotou = TRUE;
+       // $eleitor->save();
     }
         return redirect('votacao');
 

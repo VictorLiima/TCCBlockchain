@@ -25,7 +25,7 @@ class NosController extends Controller
         $listaUsuarios = User::paginate(15);
 
         //Criando json para se comunicar com a blockchain
-       $dados = array("nodes" => null);
+       $dados = array("nodes" => array($request->enderecoNo));
        $string = json_encode($dados);
     
         //cURL

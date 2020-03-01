@@ -48,15 +48,16 @@ class Blockchain:
 
         while current_index < len(chain):
             block = chain[current_index]
-            print(u'{last_block}')
-            print(u'{block}')
+            print(f'{last_block}')
+            print(f'{block}')
             print("\n-----------\n")
             # Check that the hash of the block is correct
-            if block['previous_hash'] != self.hash(last_block):
+            last_block_hash = self.hash(last_block)
+            if block['previous_hash'] != last_block_hash:
                 return False
 
             # Check that the Proof of Work is correct
-            if not self.valid_proof(last_block['proou'], block['proou']):
+            if not self.valid_proof(last_block['proof'], block['proof'], last_block_hash):
                 return False
 
             last_block = block
@@ -80,7 +81,7 @@ class Blockchain:
 
         # Grab and verify the chains from all the nodes in our network
         for node in neighbours:
-            response = requests.get(u'http://{node}/chain')
+            response = requests.get(f'http://{node}/chain')
 
             if response.status_code == 200:
                 length = response.json()['length']
@@ -111,7 +112,7 @@ class Blockchain:
             'index': len(self.chain) + 1,
             'timestamp': time(),
             'transactions': self.current_transactions,
-            'proou': proof,
+            'proof': proof,
             'previous_hash': previous_hash or self.hash(self.chain[-1]),
         }
 
@@ -154,21 +155,28 @@ class Blockchain:
         block_string = json.dumps(block, sort_keys=True).encode()
         return hashlib.sha256(block_string).hexdigest()
 
-    def proof_of_work(self, last_proof):
+    def proof_of_work(self, last_block):
         """
         Simple Proof of Work Algorithm:
-         - Find a number p' such that hash(pp') contains leading 4 zeroes, where p is the previous p'
-         - p is the previous proof, and p' is the new proof
+
+         - Find a number p' such that hash(pp') contains leading 4 zeroes
+         - Where p is the previous proof, and p' is the new proof
+         
+        :param last_block: <dict> last Block
+        :return: <int>
         """
 
+        last_proof = last_block['proof']
+        last_hash = self.hash(last_block)
+
         proof = 0
-        while self.valid_proof(last_proof, proof) is False:
+        while self.valid_proof(last_proof, proof, last_hash) is False:
             proof += 1
 
         return proof
 
     @staticmethod
-    def valid_proof(last_proof, proof):
+    def valid_proof(last_proof, proof, last_hash):
         """
         Validates the Proof
 
@@ -177,9 +185,9 @@ class Blockchain:
         :return: True if correct, False if not.
         """
 
-        guess = u'{last_proof}{proof}'.encode()
+        guess = f'{last_proof}{proof}{last_hash}'.encode()
         guess_hash = hashlib.sha256(guess).hexdigest()
-        return guess_hash[-1:] == "0"
+        return guess_hash[:4] == "0000"
 
     def save(self):
         import json
@@ -207,26 +215,25 @@ def saveBlockchain():
 def mine():
     # We run the proof of work algorithm to get the next proof...
     last_block = blockchain.last_block
-    last_proof = last_block['proou']
-    proof = blockchain.proof_of_work(last_proof)
+    proof = blockchain.proof_of_work(last_block)
 
     # We must receive a reward for finding the proof.
     # The sender is "0" to signify that this node has mined a new coin.
-
     # blockchain.new_transaction(
-    #     sender="0",
-    #     recipient=node_identifier,
-    #     amount=1,
-    # )
+    #    sender="0",
+    #    recipient=node_identifier,
+    #    amount=1,
+    #)
 
     # Forge the new Block by adding it to the chain
-    block = blockchain.new_block(proof, last_block['previous_hash'])
+    previous_hash = blockchain.hash(last_block)
+    block = blockchain.new_block(proof, previous_hash)
 
     response = {
         'message': "New Block Forged",
         'index': block['index'],
         'transactions': block['transactions'],
-        'proou': block['proou'],
+        'proof': block['proof'],
         'previous_hash': block['previous_hash'],
     }
     return jsonify(response), 200
@@ -242,10 +249,9 @@ def new_transaction():
         return 'Missing values', 400
 
     # Create a new Transaction
-    index = blockchain.new_transaction(
-        values['sender'], values['recipient'], values['amount'])
+    index = blockchain.new_transaction(values['sender'], values['recipient'], values['amount'])
 
-    response = {'message': u'Transaction will be added to Block {index}'}
+    response = {'message': f'Transaction will be added to Block {index}'}
     return jsonify(response), 201
 
 
@@ -298,8 +304,7 @@ if __name__ == '__main__':
     from argparse import ArgumentParser
 
     parser = ArgumentParser()
-    parser.add_argument('-p', '--port', default=5000,
-                        type=int, help='port to listen on')
+    parser.add_argument('-p', '--port', default=5000, type=int, help='port to listen on')
     args = parser.parse_args()
     port = args.port
 
