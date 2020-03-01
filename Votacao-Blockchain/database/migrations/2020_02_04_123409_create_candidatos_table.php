@@ -17,7 +17,6 @@ class CreateCandidatosTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->String('nome');
-            $table->bigInteger('total_votos')->nullable();
 
         });
     }

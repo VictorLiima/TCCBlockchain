@@ -61,7 +61,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                            <form action="{{ route('deletarCandidato', $candidato->id) }}" method="post">
+                                            <form action="{{ route('votarCandidato', $candidato->nome) }}" method="post">
                                                 {{csrf_field()}}
                                                 <button type="submit" class="btn btn-success btn-xs" value="Votar">
                                                     Votar </button>

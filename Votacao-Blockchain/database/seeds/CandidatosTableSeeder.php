@@ -18,7 +18,6 @@ class CandidatosTableSeeder extends Seeder
             DB::table('candidatos')->insert(
                 [
                     'nome' => $faker->name(),
-                    'total_votos' => random_int(1,10)
                 ]
             );
         }

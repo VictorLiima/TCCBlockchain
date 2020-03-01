@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->boolean('administrador');
             $table->boolean('eleitor');
             $table->string('senha_redefinida')->nullable();
+            $table->boolean('jaVotou')->default(FALSE);
         });
     }
 

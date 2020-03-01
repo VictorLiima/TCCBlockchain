@@ -52,8 +52,8 @@
             type: "bar",
             data: barChartData,
             options: chartOptions,
-             
-        }); 
+
+        });
 
         var novoDatasetBarChart = {
             backgroundColor: [
@@ -62,13 +62,44 @@
                     echo 'getRandomColor()' . ',';
                 }
                 ?>
-                
+
             ],
             data: [
                 <?php
+                // $result = mysql_query("SELECT * FROM candidatos");
+
+                // while ($row = mysql_fetch_array($result)) {
+                //     $blockchain = fopen("blockchain/blocks.txt", "r");
+                //     $candidate = $row['candidate_name'];
+
+                //     $votes = 0;
+                //     while (!feof($blockchain)) {
+                //         $data = fgets($blockchain);
+                //         if (substr_count($data, $candidate)) {
+                //             $votes += substr_count($data, $candidate);
+                //         }
+                //     }
+
+                //     fclose($blockchain);
+                // }
+
+                
+
                 foreach ($listaCandidatos as $candidato) {
-                    echo $candidato->total_votos . ',';
+                    $blockchain = fopen("../blockchain/blocks.txt", "r");
+                    $candidate = $candidato->nome;
+                    $votes = 0;
+                    while (!feof($blockchain)) {
+                        $data = fgets($blockchain);
+                        if (substr_count($data, $candidate)) {
+                            $votes += substr_count($data, $candidate);
+                        }
+                    }
+                    echo $votes . ',';
+                    fclose($blockchain);
                 }
+               
+
                 ?>
             ],
         }
@@ -76,7 +107,7 @@
         barChartData.datasets.push(novoDatasetBarChart);
 
         myBarChart.update();
-        
+
         function getRandomRgba() {
             var o = Math.round,
                 r = Math.random,
@@ -92,7 +123,6 @@
             }
             return color;
         }
-
     </script>
 
     <div class="carregando" id="loading">
