@@ -25,6 +25,9 @@ Route::middleware(['auth', 'Administrador', 'SenhaRedefinida'])->group(function 
     Route::post('/usuarios/cadastro/alterar/{id}', 'UsuariosController@alterarUsuario')->name('alterarUsuario');
     Route::any('/usuarios/busca', 'UsuariosController@buscaUsuario')->name('usuariosBusca');
 
+    Route::get('/nos', 'NosController@index')->name('telaCadastroNo');
+    Route::post('/nos/novo', 'NosController@cadastrarNo')->name('cadastrarNo');
+
     
     Route::get('/candidatos/cadastro', 'CandidatosController@telaCadastroCandidato')->name('telaCadastroCandidato');
     Route::get('/candidatos/cadastro/{id}', 'CandidatosController@getCandidato')->name('candidatoId');

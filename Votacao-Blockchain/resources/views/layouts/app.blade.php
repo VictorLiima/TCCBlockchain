@@ -55,6 +55,7 @@
                 @if (Auth::user()->administrador == 1)
                 <a href="{{ route('candidatos') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-address-card"></i> Candidatos</a>
                 <a href="{{ route('usuarios') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-users"></i> Usuários</a>
+                <a href="{{ route('telaCadastroNo') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-project-diagram"></i> Nós</a>
                 @endif
                 <a href="{{ route('resultado') }}" class="list-group-item list-group-item-action bg-info text-white"><i class="fas fa-chart-bar"></i> Resultado</a>
 

@@ -1,10 +1,7 @@
 import hashlib
 import json
 from time import time
-import urllib
-
-
-#from urllib import url2pathname
+from urllib.parse import urlparse
 from uuid import uuid4
 
 import requests
@@ -29,8 +26,14 @@ class Blockchain:
         :param address: Address of node. Eg. 'http://192.168.0.5:5000'
         """
 
-        parsed_url = url2pathname(address)
-        self.nodes.add(parsed_url.netloc)
+        parsed_url = urlparse(address)
+        if parsed_url.netloc:
+            self.nodes.add(parsed_url.netloc)
+        elif parsed_url.path:
+            # Accepts an URL without scheme like '192.168.0.5:5000'.
+            self.nodes.add(parsed_url.path)
+        else:
+            raise ValueError('Invalid URL')
 
     def valid_chain(self, chain):
         """

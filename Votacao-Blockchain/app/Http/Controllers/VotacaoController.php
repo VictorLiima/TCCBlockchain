@@ -35,8 +35,6 @@ class VotacaoController extends Controller
         $dados = array("sender" => $remetente, "recipient" => $candidato, "amount" => $quantidade);
         $string = json_encode($dados, JSON_UNESCAPED_UNICODE);
 
-        print_r($string);
-
         //cURL criando uma nova transação de voto
         $ch = curl_init("http://localhost:5000/transactions/new");
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
