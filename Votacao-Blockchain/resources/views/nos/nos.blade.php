@@ -39,7 +39,7 @@
                                 <input type="text" class="form-control" maxlength="255" name="enderecoNo" id="enderecoNo" placeholder="Endereço do nó">
                             </div>
                         </div>
-                        <p>Exemplo: http://127.0.0.1:5001</p>
+                        <p>Exemplo: http://localhost:5001</p>
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>
                 </div>

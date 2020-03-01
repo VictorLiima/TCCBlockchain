@@ -36,7 +36,7 @@ class VotacaoController extends Controller
         $string = json_encode($dados, JSON_UNESCAPED_UNICODE);
 
         //cURL criando uma nova transação de voto
-        $ch = curl_init("http://localhost:5000/transactions/new");
+        $ch = curl_init("http://localhost:5001/transactions/new");
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
         curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $string);
@@ -45,13 +45,13 @@ class VotacaoController extends Controller
         curl_close($ch);
 
         // Mineração
-        $ch = curl_init("http://localhost:5000/mine");
+        $ch = curl_init("http://localhost:5001/mine");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_exec($ch);
         curl_close($ch);
 
         // Saving
-        $ch = curl_init("http://localhost:5000/save");
+        $ch = curl_init("http://localhost:5001/save");
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_exec($ch);
         curl_close($ch);
