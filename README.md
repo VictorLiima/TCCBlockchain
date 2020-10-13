@@ -1,5 +1,5 @@
 # TCCBlockchain
-Trabalho desenvolvido como requisito para aprovação na disciplina de TCC, do curso Tecnologia em Análise e Desenvolvimento de Sistemas. Baseado no projeto: https://github.com/dvf/blockchain.
+Trabalho desenvolvido como requisito para aprovação na disciplina de TCC, do curso Tecnologia em Análise e Desenvolvimento de Sistemas. Baseado no projeto: https://github.com/dvf/blockchain. Vídeo demonstrativo em: https://www.youtube.com/watch?v=s22CZk1eiRQ
 
 Requisitos: 
 1) Python 3.6+ e pipenv. Instalação do pipenv e depen requerimentos.
